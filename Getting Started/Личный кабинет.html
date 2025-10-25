@@ -1,0 +1,119 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link href="main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="Психология.html">Главная</a></li>
+                    <li><a href="Психология.html#about">О психологе</a></li>
+                    <li><a href="Психология.html#services">Услуги</a></li>
+                    <li><a href="Психология.html#schedule">Расписание</a></li>
+                    <li><a href="Регистрация.html">Регистрация аккаунта</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <section id="home">
+                <h1>Личный кабинет</h1>
+                <h3>Выберите психолога и запишитесь на прием</h3>
+
+                <p>Что-то о психологах</p>
+                
+                <section id="contact">
+                    <h2>Запись на прием</h2>
+                    <form action="#" method="post">
+                        <label for="name">Ваше имя:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" required>
+
+                        <label for="psychologists">Выберите специалиста:</label>
+                        <select id="psychologists" name="psychologists">
+                            <option value="michael">Михаил Новиков</option>
+                            <option value="vasia">Василий Пронин</option>
+                            <option value="dima">Дмитрий Демидов</option>
+                            <option value="maks">Максим Леоньтев</option>
+                        </select>
+
+                        <button type="submit">Отправить заявку</button>
+                    </form>
+                </section>
+                <section id="appointment">
+                    <h2>Запись на прием</h2>
+                    <form action="#" method="post">
+                        <label for="name">Ваше имя:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" required>
+
+                        <label for="specialist">Выберите специалиста:</label>
+                        <select id="specialist" name="specialist" required>
+                            <option value="">-- Выберите психолога --</option>
+                            <option value="michael">Михаил Новиков</option>
+                            <option value="vasia">Василий Пронин</option>
+                            <option value="dima">Дмитрий Демидов</option>
+                            <option value="maks">Максим Леонтьев</option>
+                        </select>
+
+                        <label for="date">Выберите дату:</label>
+                        <input type="date" id="date" name="date" min="" required>
+
+                        <label for="time">Выберите время:</label>
+                        <select id="time" name="time" required>
+                            <option value="">-- Выберите время --</option>
+                            <!-- Время будет заполняться через JavaScript -->
+                        </select>
+
+                        <button type="submit">Записаться на прием</button>
+                    </form>
+                </section>
+            </section>
+        </main>
+    </div>
+    <script>
+// JavaScript код из предыдущего сообщения
+const availableTimes = [
+    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
+    '11:00', '11:30', '12:00', '12:30', '13:00',
+    '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
+];
+
+const dateInput = document.getElementById('date');
+const today = new Date().toISOString().split('T')[0];
+dateInput.min = today;
+
+dateInput.addEventListener('change', function() {
+    const timeSelect = document.getElementById('time');
+    timeSelect.innerHTML = '<option value="">-- Выберите время --</option>';
+    
+    availableTimes.forEach(time => {
+        const option = document.createElement('option');
+        option.value = time;
+        option.textContent = time;
+        timeSelect.appendChild(option);
+    });
+});
+
+document.querySelector('form').addEventListener('submit', function(e) {
+    const specialist = document.getElementById('specialist').value;
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    
+    if (!specialist || !date || !time) {
+        e.preventDefault();
+        alert('Пожалуйста, заполните все поля!');
+    }
+});
+</script>
+</body>
+</html>

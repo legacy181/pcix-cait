@@ -1,0 +1,102 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Язык HTML</title>
+        <meta name="description" content="Интерактивное руководство по началу работы в Brackets.">
+        
+        <style>
+        body{
+            font-family: Times New Roman;
+            color: #000000;
+            line-height: 1.5;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;            
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }      
+        .p1 {
+            background: #181b1d;
+            color: white;
+            margin-bottom: 15px;
+            text-indent: 30px;                
+        }   
+        
+        .p2 {
+            background: #fff3cd;
+            color: brown;
+            margin-bottom: 10px;
+            text-indent: 30px;                
+        }   
+        .p3 {
+            background: #d1ecf1;
+            color: #0000ba;
+            margin-bottom: 30px;
+            text-indent: 30px;                
+        }   
+        .images-container {
+            display: flex;                
+            justify-content: center;      
+            gap: 20px;                   
+        }
+    
+        .images-container img {
+            max-width: 250px;            
+            border: 2px solid #ddd;
+        }       
+        
+        ul {
+            list-style-type: square;
+            margin-left: 20px;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }        
+        
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>HTML</h1>		
+            <p class="p1">
+                HTML (от английского HyperText Markup Language — «язык гипертекстовой разметки») является фундаментальным строительным блоком Всемирной паутины. Это не язык программирования, а язык разметки, который используется для определения структуры и содержания веб-страницы. С помощью HTML автор описывает базовый каркас документа: размещает заголовки, абзацы, списки, изображения, ссылки и другие элементы. Браузер, получая HTML-код, интерпретирует его и отображает в виде форматированного документа, который видит пользователь.
+            </p>
+
+            <p class="p2">
+                <em>Основу HTML составляют теги — специальные ключевые слова, заключенные в угловые скобки (например, p для абзаца или img для изображения). Теги обычно бывают парными — открывающий и закрывающий (например, h1 Заголовок h1), но некоторые являются одиночными. Эти теги действуют как контейнеры для содержимого и сообщают браузеру, какого типа информацию они в себе несут. Атрибуты внутри тегов предоставляют дополнительную информацию об элементе (например, атрибут src="logo.png" в теге img указывает путь к файлу изображения).
+                </em>
+            </p>		
+
+            <p class="p3">
+                <b>Современный стандарт HTML5 значительно расширил возможности языка, добавив семантические теги (такие как header, footer, article и section), которые придают структуре страницы логический смысл, что важно для поисковых систем и доступности. Таким образом, HTML отвечает за статичное содержимое и разметку страницы, в то время как за её внешний вид отвечает CSS (каскадные таблицы стилей), а за интерактивность — JavaScript. Вместе эти три технологии образуют основу для создания современных, динамичных и визуально привлекательных веб-сайтов.
+                </b>
+            </p>   
+
+            <div class="images-container">
+                <a href="screenshots/html.png"><img src="screenshots/html.png"></a>
+                <a href="screenshots/html2.png"><img src="screenshots/html2.png"></a>
+            </div>
+
+
+            <ul>
+                <li><a href="Второй.html">Второй.html </a></li>
+                <li><a href="Третий.html">Третий.html </a></li>
+                <li><a href="Четвертый.html">Четвертый.html </a></li>
+            </ul>    
+		
+        </div>
+    </body>
+</html>

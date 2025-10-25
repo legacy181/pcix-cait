@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новые теги HTML5</title>
+    <style>
+        body {
+            font-family: 'verdana', serif;
+            line-height: 1.6;
+            margin: 20px;            
+            background-color: #f5f5f5;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        h1 {
+            
+            color: #2c3e50;
+            text-align: center;
+            
+        }
+        
+        h2 {
+            color: #3e9875;
+            margin-top: 30px;
+        }
+        
+        p {         
+            
+            margin-bottom: 15px;
+            text-indent: 30px;                
+        }   
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;            
+        }
+        
+        th {
+            background-color: #3e9875;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }   
+       
+        .navigation {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .navigation a {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #3e9875;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }        
+       
+    </style>
+</head>
+<body>
+
+    <h1>Новые теги HTML5</h1>
+    
+    
+
+    <p>HTML5 introduced множество новых семантических тегов, которые улучшают структуру веб-страниц и делают их более доступными для поисковых систем и вспомогательных технологий.</p>
+
+    <h2>Семантические теги HTML5</h2>
+    
+    <table>
+        <tr>
+            <th>Тег</th>
+            <th>Описание</th>
+            <th>Пример использования</th>
+        </tr>
+        <tr>
+            <td><span>&lt;header&gt;</span></td>
+            <td>Определяет шапку документа или раздела</td>
+            <td>Заголовок страницы, логотип, навигация</td>
+        </tr>
+        <tr>
+            <td><span>&lt;footer&gt;</span></td>
+            <td>Определяет подвал документа или раздела</td>
+            <td>Контактная информация, авторские права</td>
+        </tr>
+        <tr>
+            <td><span>&lt;nav&gt;</span></td>
+            <td>Определяет навигационные ссылки</td>
+            <td>Основное меню сайта, навигация по странице</td>
+        </tr>
+        <tr>
+            <td><span>&lt;main&gt;</span></td>
+            <td>Определяет основное содержимое документа</td>
+            <td>Уникальный контент страницы</td>
+        </tr>
+        <tr>
+            <td><span>&lt;article&gt;</span></td>
+            <td>Определяет независимый самодостаточный контент</td>
+            <td>Статья блога, новость, комментарий</td>
+        </tr>
+        <tr>
+            <td><span>&lt;section&gt;</span></td>
+            <td>Определяет тематический раздел документа</td>
+            <td>Главы, вкладки, группировка контента</td>
+        </tr>
+        <tr>
+            <td><span>&lt;aside&gt;</span></td>
+            <td>Определяет дополнительный контент</td>
+            <td>Боковая панель, реклама, дополнительные сведения</td>
+        </tr>
+        <tr>
+            <td><span >&lt;figure&gt;</span></td>
+            <td>Определяет автономный контент (иллюстрации, диаграммы)</td>
+            <td>Изображения с подписями</td>
+        </tr>
+        <tr>
+            <td><span >&lt;figcaption&gt;</span></td>
+            <td>Определяет подпись для элемента &lt;figure&gt;</td>
+            <td>Описание изображения или диаграммы</td>
+        </tr>
+    </table>
+
+    <h2>Мультимедийные теги HTML5</h2>
+    
+    <table>
+        <tr>
+            <th>Тег</th>
+            <th>Описание</th>
+            <th>Преимущества</th>
+        </tr>
+        <tr>
+            <td><span >&lt;audio&gt;</span></td>
+            <td>Встраивает звуковой контент</td>
+            <td>Воспроизведение без плагинов, контроль через JavaScript</td>
+        </tr>
+        <tr>
+            <td><span >&lt;video&gt;</span></td>
+            <td>Встраивает видео контент</td>
+            <td>Поддержка различных форматов, субтитры</td>
+        </tr>
+        <tr>
+            <td><span >&lt;canvas&gt;</span></td>
+            <td>Создает область для рисования графики</td>
+            <td>Динамическая графика, игры, анимация</td>
+        </tr>
+        <tr>
+            <td><span >&lt;svg&gt;</span></td>
+            <td>Определяет векторную графику</td>
+            <td>Масштабирование без потери качества</td>
+        </tr>
+    </table>
+
+    <h2>Формы и элементы ввода HTML5</h2>
+    
+    <table>
+        <tr>
+            <th>Тег/Атрибут</th>
+            <th>Описание</th>
+            <th>Пример</th>
+        </tr>
+        <tr>
+            <td><span >&lt;datalist&gt;</span></td>
+            <td>Предопределенные варианты для поля ввода</td>
+            <td>Выпадающий список с автодополнением</td>
+        </tr>
+        <tr>
+            <td><span >type="email"</span></td>
+            <td>Поле для ввода email адреса</td>
+            <td>Автоматическая валидация формата email</td>
+        </tr>
+        <tr>
+            <td><span >type="url"</span></td>
+            <td>Поле для ввода URL адреса</td>
+            <td>Проверка корректности веб-адреса</td>
+        </tr>
+        <tr>
+            <td><span >type="date"</span></td>
+            <td>Поле для выбора даты</td>
+            <td>Встроенный календарь для выбора</td>
+        </tr>
+        <tr>
+            <td><span >type="range"</span></td>
+            <td>Ползунок для выбора значения</td>
+            <td>Интерактивный выбор числового значения</td>
+        </tr>
+    </table>
+
+    <div class="navigation">
+        <a href="Первый.html">Первый.html</a>
+        <a href="Второй.html">Второй.html</a>
+        <a href="Четвертый.html">Четвертый.html</a>
+    </div>
+
+</body>
+</html>
