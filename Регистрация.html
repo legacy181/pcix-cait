@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title></title>       
+    <link href=main.css rel="stylesheet" type="text/css">        
+</head>
+<body>
+<div class="form-container">
+    <h2>Регистрация аккаунта </h2>
+    <form action="#" method="post">
+    <div class="form-group">
+        <label for="login">Логин:</label>
+        <input type="text" id="login" name="login" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="fio">ФИО:</label>
+        <input type="text" id="fio" name="fio" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="mail">Почта:</label>
+        <input type="text" id="mail" name="mail" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="gender">Пол:</label>
+        <div class="radio-group">
+           <div class="radio-option">
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Мужской</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Женский</label>
+            </div>
+ 
+        </div>
+    </div>
+    </form>
+    
+    <button type="submit" class="btn">Регистрация</button>
+</div>
+</body>
+</html>

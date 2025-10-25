@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы | Психологический центр "Гармония"</title>
+    <link href="main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="Психология.html">Главная</a></li>
+                    <li><a href="Психология.html#about">О психологе</a></li>
+                    <li><a href="Психология.html#services">Услуги</a></li>
+                    <li><a href="Психология.html#schedule">Расписание</a></li>
+                    <li><a href="Регистрация.html">Регистрация</a></li>
+                    <li><a href="Личный кабинет.html">Запись на прием</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="reviews.html">Отзывы</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h1>Отзывы о наших психологах</h1>            
+            
+            <section id="add-review">
+                <h2>Оставить отзыв</h2>
+                <form id="review-form">
+                    <label for="review-name">Ваше имя:</label>
+                    <input type="text" id="review-name" name="name" required>
+                    
+                    <label for="review-psychologist">Выберите психолога:</label>
+                    <select id="review-psychologist" name="psychologist" required>
+                        <option value="">-- Выберите психолога --</option>
+                        <option value="michael">Михаил Новиков</option>
+                        <option value="vasia">Василий Пронин</option>
+                        <option value="dima">Дмитрий Демидов</option>
+                        <option value="maks">Максим Леонтьев</option>
+                    </select>                 
+                    
+                    <label for="review-text">Текст отзыва:</label>
+                    <textarea id="review-text" name="text" rows="5" required></textarea>
+                    
+                    <button type="submit">Опубликовать отзыв</button>
+                </form>
+            </section>
+
+            
+            <section id="reviews-list">
+                <h2>Все отзывы</h2>
+                <div class="reviews-container" id="reviews-container">
+                    
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+      
+            function getPsychologistName(key) {
+                const psychologists = {
+                    'michael': 'Михаил Новиков',
+                    'vasia': 'Василий Пронин', 
+                    'dima': 'Дмитрий Демидов',
+                    'maks': 'Максим Леонтьев'
+                };
+                return psychologists[key] || key;
+            }
+     
+            function deleteReview(index) {
+                if (confirm('Удалить этот отзыв?')) {
+                    let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                    reviews.splice(index, 1);
+                    localStorage.setItem('reviews', JSON.stringify(reviews));
+                    displayReviews();
+                }
+            }
+
+            function displayReviews() {
+                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                const container = document.getElementById('reviews-container');
+
+                if (reviews.length === 0) {
+                    container.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
+                    return;
+                }
+
+                container.innerHTML = reviews.map((review, index) => `
+                    <div class="review">
+                        <button class="delete-btn" onclick="deleteReview(${index})" title="Удалить отзыв">×</button>
+                        <div class="review-header">
+                            <strong>${review.name}</strong>
+                            <span class="rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+                        </div>
+                        <p class="review-psychologist">Психолог: ${getPsychologistName(review.psychologist)}</p>
+                        <p class="review-text">${review.text}</p>
+                        <div class="review-date">${review.date}</div>
+                    </div>
+                `).join('');
+            }
+
+            function displayLatestReviews() {
+                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                const container = document.getElementById('latest-reviews-container');
+
+                if (!container) return; // Если блока нет на странице
+
+                if (reviews.length === 0) {
+                    container.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
+                    return;
+                }
+
+                const latestReviews = reviews.slice(0, 3);
+                container.innerHTML = latestReviews.map((review, index) => `
+                    <div class="review">
+                        <div class="review-header">
+                            <strong>${review.name}</strong>
+                            <span class="rating">${'★'.repeat(review.rating)}</span>
+                        </div>
+                        <p class="review-text">${review.text.substring(0, 100)}${review.text.length > 100 ? '...' : ''}</p>
+                        <div class="review-date">${review.date}</div>
+                    </div>
+                `).join('');
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const reviewForm = document.getElementById('review-form');
+                if (reviewForm) {
+                    reviewForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+
+                        const review = {
+                            name: document.getElementById('review-name').value,
+                            psychologist: document.getElementById('review-psychologist').value,
+                            text: document.getElementById('review-text').value,
+                            date: new Date().toLocaleDateString('ru-RU')
+                        };
+
+                        let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                        reviews.unshift(review); 
+                        localStorage.setItem('reviews', JSON.stringify(reviews));
+
+                        this.reset();
+
+                        displayReviews();
+
+                        alert('Отзыв добавлен! Спасибо!');
+                    });
+                }
+
+                displayReviews();
+                displayLatestReviews();
+            });
+    </script>
+</body>
+</html>
