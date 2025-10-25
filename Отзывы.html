@@ -17,8 +17,8 @@
                 <li><a href="index.html#schedule">Расписание</a></li>
                 <li><a href="Регистрация.html">Регистрация</a></li>
                 <li><a href="Личный кабинет.html">Запись на прием</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
-                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="Контакты.html">Контакты</a></li>
+                <li><a href="Отзыв.html">Отзывы</a></li>
                 </ul>
             </nav>
         </aside>
@@ -43,7 +43,9 @@
                     
                     <label for="review-text">Текст отзыва:</label>
                     <textarea id="review-text" name="text" rows="5" required></textarea>
-                    
+                    <div class="censorship-warning" id="censorship-warning" style="display: none; color: #e74c3c; margin: 10px 0; padding: 10px; background: #ffeaea; border-radius: 5px;">
+    Пожалуйста, уберите нецензурные выражения из отзыва
+</div>
                     <button type="submit">Опубликовать отзыв</button>
                 </form>
             </section>
@@ -57,103 +59,129 @@
             </section>
         </main>
     </div>
-
     <script>
-      
-            function getPsychologistName(key) {
-                const psychologists = {
-                    'michael': 'Михаил Новиков',
-                    'vasia': 'Василий Пронин', 
-                    'dima': 'Дмитрий Демидов',
-                    'maks': 'Максим Леонтьев'
-                };
-                return psychologists[key] || key;
-            }
-     
-            function deleteReview(index) {
-                if (confirm('Удалить этот отзыв?')) {
-                    let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-                    reviews.splice(index, 1);
-                    localStorage.setItem('reviews', JSON.stringify(reviews));
-                    displayReviews();
-                }
-            }
 
-            function displayReviews() {
-                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-                const container = document.getElementById('reviews-container');
+    function getPsychologistName(key) {
+        const psychologists = {
+            'michael': 'Михаил Новиков',
+            'vasia': 'Василий Пронин', 
+            'dima': 'Дмитрий Демидов',
+            'maks': 'Максим Леонтьев'
+        };
+        return psychologists[key] || key;
+    }
 
-                if (reviews.length === 0) {
-                    container.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
-                    return;
-                }
-
-                container.innerHTML = reviews.map((review, index) => `
-                    <div class="review">
-                        <button class="delete-btn" onclick="deleteReview(${index})" title="Удалить отзыв">×</button>
-                        <div class="review-header">
-                            <strong>${review.name}</strong>
-                            <span class="rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
-                        </div>
-                        <p class="review-psychologist">Психолог: ${getPsychologistName(review.psychologist)}</p>
-                        <p class="review-text">${review.text}</p>
-                        <div class="review-date">${review.date}</div>
-                    </div>
-                `).join('');
-            }
-
-            function displayLatestReviews() {
-                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-                const container = document.getElementById('latest-reviews-container');
-
-                if (!container) return; // Если блока нет на странице
-
-                if (reviews.length === 0) {
-                    container.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
-                    return;
-                }
-
-                const latestReviews = reviews.slice(0, 3);
-                container.innerHTML = latestReviews.map((review, index) => `
-                    <div class="review">
-                        <div class="review-header">
-                            <strong>${review.name}</strong>
-                            <span class="rating">${'★'.repeat(review.rating)}</span>
-                        </div>
-                        <p class="review-text">${review.text.substring(0, 100)}${review.text.length > 100 ? '...' : ''}</p>
-                        <div class="review-date">${review.date}</div>
-                    </div>
-                `).join('');
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const reviewForm = document.getElementById('review-form');
-                if (reviewForm) {
-                    reviewForm.addEventListener('submit', function(e) {
-                        e.preventDefault();
-
-                        const review = {
-                            name: document.getElementById('review-name').value,
-                            psychologist: document.getElementById('review-psychologist').value,
-                            text: document.getElementById('review-text').value,
-                            date: new Date().toLocaleDateString('ru-RU')
-                        };
-
-                        let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-                        reviews.unshift(review); 
-                        localStorage.setItem('reviews', JSON.stringify(reviews));
-
-                        this.reset();
-
-                        displayReviews();
-
-                        alert('Отзыв добавлен! Спасибо!');
-                    });
-                }
-
-                displayReviews();
-                displayLatestReviews();
+    // Функция для цензуры текста с помощью регулярных выражений
+    function censorText(text) {
+        const badWordPatterns = [
+            /бляд/gi,    // блядь
+            /ху[ейя]/gi, // хуй,
+            /пизд/gi,    // пизда
+            /[её]б/gi,   // ебать, ёб
+            /муда/gi,    // мудак
+            /говн/gi,    // говно
+            /жоп/gi,     // жопа
+            /сук/gi,     // сука
+            /черт/gi,    // черт
+            /дерьм/gi    // дерьмо
+        ];
+        
+        let censoredText = text;
+        
+        badWordPatterns.forEach(pattern => {
+            censoredText = censoredText.replace(pattern, (match) => {
+                return '*'.repeat(match.length);
             });
-    </script>
+        });
+        
+        return censoredText;
+    }
+
+    // Функция проверки на наличие нецензурных слов
+    function hasBadWords(text) {
+        const badWordPatterns = [
+            /бляд/gi,
+            /ху[ейя]/gi,
+            /пизд/gi,
+            /[её]б/gi,
+            /муда/gi,
+            /говн/gi,
+            /жоп/gi,
+            /сук/gi,
+            /черт/gi,
+            /дерьм/gi
+        ];
+        
+        return badWordPatterns.some(pattern => pattern.test(text));
+    }
+
+    function deleteReview(index) {
+        if (confirm('Удалить этот отзыв?')) {
+            let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            reviews.splice(index, 1);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            displayReviews();
+        }
+    }
+
+    function displayReviews() {
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+        const container = document.getElementById('reviews-container');
+
+        if (reviews.length === 0) {
+            container.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
+            return;
+        }
+
+        container.innerHTML = reviews.map((review, index) => `
+            <div class="review">
+                <button class="delete-btn" onclick="deleteReview(${index})" title="Удалить отзыв">×</button>
+                <div class="review-header">
+                    <strong>${review.name}</strong>
+                </div>
+                <p class="review-psychologist">Психолог: ${getPsychologistName(review.psychologist)}</p>
+                <p class="review-text">${review.text}</p>
+                <div class="review-date">${review.date}</div>
+            </div>
+        `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const reviewForm = document.getElementById('review-form');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('review-name').value;
+                const psychologist = document.getElementById('review-psychologist').value;
+                let text = document.getElementById('review-text').value;
+
+                if (hasBadWords(text) || hasBadWords(name)) {
+                    document.getElementById('censorship-warning').style.display = 'block';
+                    return false;
+                }
+
+                document.getElementById('censorship-warning').style.display = 'none';
+
+                const review = {
+                    name: name,
+                    psychologist: psychologist,
+                    text: text,
+                    date: new Date().toLocaleDateString('ru-RU')
+                };
+
+                let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                reviews.unshift(review); 
+                localStorage.setItem('reviews', JSON.stringify(reviews));
+
+                this.reset();
+                displayReviews();
+                alert('Отзыв добавлен! Спасибо!');
+            });
+        }
+
+        displayReviews();
+    });
+</script>
 </body>
 </html>
