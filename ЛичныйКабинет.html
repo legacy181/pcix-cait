@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на прием | Психологический центр "Гармония"</title>
+    <link href="main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <div id="sidebar"></div>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <section id="home">
+                <h1>Личный кабинет</h1>
+                <h3>Выберите психолога и запишитесь на прием</h3>
+
+                <p>В нашем центре работают опытные специалисты. Вы можете выбрать психолога, дату и удобное время для консультации.</p>
+
+                <section id="appointment">
+                    <h2>Запись на прием</h2>
+                    <form action="#" method="post">
+                        <label for="name">Ваше имя:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" required>
+
+                        <label for="specialist">Выберите специалиста:</label>
+                        <select id="specialist" name="specialist" required>
+                            <option value="">-- Выберите психолога --</option>
+                            <option value="michael">Михаил Новиков</option>
+                            <option value="vasia">Василий Пронин</option>
+                            <option value="dima">Дмитрий Демидов</option>
+                            <option value="maks">Максим Леонтьев</option>
+                        </select>
+
+                        <label for="date">Выберите дату:</label>
+                        <input type="date" id="date" name="date" required>
+
+                        <label for="time">Выберите время:</label>
+                        <select id="time" name="time" required>
+                            <option value="">-- Выберите время --</option>
+                        </select>
+
+                        <button type="submit">Записаться на прием</button>
+                    </form>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const availableTimes = [
+            '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
+            '11:00', '11:30', '12:00', '12:30', '13:00',
+            '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
+        ];
+
+        const dateInput = document.getElementById('date');
+        const timeSelect = document.getElementById('time');
+
+        // Устанавливаем минимальную дату — сегодня
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+
+        // При выборе даты заполняем список времени
+        dateInput.addEventListener('change', function () {
+            timeSelect.innerHTML = '<option value="">-- Выберите время --</option>';
+            availableTimes.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            });
+        });
+
+        // Проверка формы перед отправкой
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const specialist = document.getElementById('specialist').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            if (!name || !phone || !specialist || !date || !time) {
+                e.preventDefault();
+                alert('Пожалуйста, заполните все поля!');
+                return;
+            }
+
+            // Проверка, что дата не в прошлом
+            if (date < today) {
+                e.preventDefault();
+                alert('Нельзя записаться на прошедшую дату!');
+                return;
+            }
+        });
+    </script>    
+    <script src="sidebar.js" defer></script>
+</body>
+</html>
