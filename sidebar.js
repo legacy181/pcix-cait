@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="price.html">Цены</a></li>
                 <li><a href="index.html#schedule">Расписание</a></li>
                 <li><a href="blog.html">Блог</a></li>
-                <li><a href="Личныйкабинет.html">Запись на прием</a></li>
+                <li><a href="ЛичныйКабинет.html">Запись на прием</a></li>
                 <li><a href="Отзывы.html">Отзывы</a></li>
                 <li><a href="faq.html">FAQ</a></li>
                 <li><a href="Контакты.html">Контакты</a></li>
