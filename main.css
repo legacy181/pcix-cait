@@ -274,45 +274,42 @@ button:hover {
 /* Мобильная версия */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
+        flex-direction: row;   /* возвращаем в строку */
     }
-    
+
     .sidebar {
-        position: relative;    /* было fixed */
-        width: 100%;           /* было 20% */
-        height: auto;
+        position: fixed;
+        width: 180px;          /* уменьшили ширину */
+        height: 100vh;
+        left: 0;
+        top: 0;
         padding: 10px 0;
     }
-    
+
     .sidebar nav ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px; 
+        display: block;        /* вертикальное меню */
     }
-    
+
     .sidebar nav li {
-        flex: 1;
-        min-width: 140px;
+        margin: 0;
     }
-    
+
     .sidebar nav a {
-        text-align: center;
-        border-left: none;
-        border-bottom: 4px solid transparent;
-        padding: 8px 5px;
-        font-size: 14px; 
-        margin: 2px;
+        text-align: left;
+        border-left: 4px solid transparent;
+        border-bottom: none;
+        padding: 10px 15px;
+        font-size: 14px;
     }
-    
+
     .sidebar nav a:hover {
-        border-left: none;
-        border-bottom: 4px solid #3498db;
+        border-left: 4px solid #3498db;
+        border-bottom: none;
     }
-    
+
     .content {
+        margin-left: 180px;    /* сдвиг равен ширине сайдбара */
         padding: 15px;
-        margin-left: 0;        /* было 250px — убираем сдвиг */
         margin-top: 0;
     }
 }
