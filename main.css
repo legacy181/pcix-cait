@@ -278,9 +278,9 @@ button:hover {
     }
     
     .sidebar {
-        position: fixed; 
-        width: 20%;
-        left: 0;
+        position: relative;    /* было fixed */
+        width: 100%;           /* было 20% */
+        height: auto;
         padding: 10px 0;
     }
     
@@ -312,7 +312,8 @@ button:hover {
     
     .content {
         padding: 15px;
-        margin-top: 0; 
+        margin-left: 0;        /* было 250px — убираем сдвиг */
+        margin-top: 0;
     }
 }
 
