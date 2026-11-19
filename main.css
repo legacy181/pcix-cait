@@ -7,15 +7,16 @@ body {
     line-height: 1.6;
 }
 
+/* Контейнер теперь без ограничения по ширине (full-screen) */
 .container {
     display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%; 
+    margin: 0;
     background-color: white;
     min-height: 100vh;
 }
 
-/* Боковая панель */
+/* Боковая панель (Десктоп) */
 .sidebar {
     width: 250px;
     position: fixed;
@@ -23,6 +24,8 @@ body {
     background-color: #2c3e50;
     color: white;
     padding: 20px 0;
+    left: 0;
+    top: 0;
 }
 
 .sidebar nav ul {
@@ -53,7 +56,8 @@ body {
 .content {
     flex: 1;
     padding: 30px;
-    margin-left: 250px;
+    margin-left: 250px; /* Сдвиг под сайдбар */
+    width: calc(100% - 250px);
 }
 
 h1, h2, h3 {
@@ -128,6 +132,8 @@ input:focus, select:focus, textarea:focus {
     display: inline-block;
     text-align: center;
     transition: background-color 0.3s;
+    width: 100%;
+    font-size: 16px;
 }
 
 .btn:hover {
@@ -271,51 +277,6 @@ button:hover {
     margin-bottom: 20px;
 }
 
-/* Мобильная версия */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        position: fixed; 
-        width: 20%;
-        left: 0;
-        padding: 10px 0;
-    }
-    
-    .sidebar nav ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px; 
-    }
-    
-    .sidebar nav li {
-        flex: 1;
-        min-width: 140px;
-    }
-    
-    .sidebar nav a {
-        text-align: center;
-        border-left: none;
-        border-bottom: 4px solid transparent;
-        padding: 8px 5px;
-        font-size: 14px; 
-        margin: 2px;
-    }
-    
-    .sidebar nav a:hover {
-        border-left: none;
-        border-bottom: 4px solid #3498db;
-    }
-    
-    .content {
-        padding: 15px;
-        margin-top: 0; 
-    }
-}
-
 /* Стили для формы записи */
 #appointment {
     margin: 30px 0;
@@ -375,7 +336,6 @@ button:hover {
     margin: 30px 0;
 }
 
-
 /* Стили для списка отзывов */
 .reviews-container {
     display: flex;
@@ -388,6 +348,8 @@ button:hover {
     padding: 20px;
     border-radius: 8px;
     border-left: 4px solid #3498db;
+    position: relative;
+    padding-right: 40px; 
 }
 
 .review-header {
@@ -423,9 +385,6 @@ button:hover {
     font-size: 14px;
     text-align: right;
 }
-.review {
-    position: relative;
-}
 
 .delete-btn {
     position: absolute;
@@ -448,31 +407,12 @@ button:hover {
     background: #c0392b;
 }
 
-.review {
-    position: relative;
-    padding-right: 40px; 
-}
-
 .g-recaptcha {
     margin: 20px 0;
     display: flex;
     justify-content: center;
 }
 
-.btn {
-    background-color: #3498db;
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-}
-
-.btn:hover {
-    background-color: #2980b9;
-}
 /* Карточки специалистов */
 .team-container {
     display: flex;
@@ -507,6 +447,7 @@ button:hover {
     margin: 0 0 10px 0;
     color: #2c3e50;
 }
+
 /* Блог */
 .blog-list {
     display: flex;
@@ -558,10 +499,63 @@ button:hover {
     margin: 15px 0;
     padding-left: 25px;
 }
-/* Мобильная версия карточек */
+
+/* =========================================
+   ЕДИНЫЙ БЛОК МОБИЛЬНОЙ ВЕРСИИ (Бургер-меню)
+   ========================================= */
+
+/* Скрываем кнопку на компьютере */
+.hamburger {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    /* Стили для кнопки-бургера */
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1000; /* Поверх всех элементов */
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+        font-size: 24px;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Прячем меню за левый край экрана */
+    .sidebar {
+        position: fixed;
+        left: -100%; /* Убираем за экран */
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        z-index: 999;
+        transition: left 0.3s ease; /* Плавная анимация */
+    }
+
+    /* Класс, который добавляет JS при клике (выезд меню) */
+    .sidebar.active {
+        left: 0; 
+    }
+    
+    /* Контент занимает всю ширину */
+    .content {
+        padding: 15px;
+        padding-top: 70px; /* Отступ сверху, чтобы бургер не перекрывал заголовок */
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Карточки специалистов встают в одну колонку */
     .team-card {
         width: 100%;
     }
 }
-
