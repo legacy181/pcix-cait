@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /Регистрация.html
+Disallow: /Личный кабинет.html
+Allow: /
+
+Sitemap: https://pcix-cait.novikovmishaaa.workers.dev/sitemap.xml
