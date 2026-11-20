@@ -2,43 +2,45 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=114414632', 'ym');
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на прием | Психологический центр "Гармония"</title>
+    <link href="main.css" rel="stylesheet" type="text/css">
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        ym(114414632, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+       ym(114414632, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/114414632" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
-    
-    <title>Запись на прием | Психологический центр "Гармония"</title>
-    <link href="main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="container">
-        <aside class="sidebar">
-            <nav>
-                <ul>
-                    <div id="sidebar"></div>
-                </ul>
-            </nav>
-        </aside>
+        <!-- Сайдбар подгружается из sidebar.js -->
+        <div id="sidebar"></div>
 
         <main class="content">
             <section id="home">
-                <h1>Личный кабинет</h1>
-                <h3>Выберите психолога и запишитесь на прием</h3>
+                <h1>Запись на прием</h1>
+                <h3>Выберите психолога и запишитесь на консультацию</h3>
 
                 <p>В нашем центре работают опытные специалисты. Вы можете выбрать психолога, дату и удобное время для консультации.</p>
 
                 <section id="appointment">
-                    <h2>Запись на прием</h2>
-                    <form onsubmit="event.preventDefault(); alert('Спасибо! Ваша заявка отправлена.');">
+                    <h2>Заполните форму</h2>
+                    
+                    <!-- Убрали action и method, добавили id для JS -->
+                    <form id="appointmentForm">
                         <label for="name">Ваше имя:</label>
                         <input type="text" id="name" name="name" required>
 
@@ -57,11 +59,6 @@
                         <label for="date">Выберите дату:</label>
                         <input type="date" id="date" name="date" required>
 
-                        <label for="time">Выберите время:</label>
-                        <select id="time" name="time" required>
-                            <option value="">-- Выберите время --</option>
-                        </select>
-
                         <button type="submit">Записаться на прием</button>
                     </form>
                 </section>
@@ -69,53 +66,50 @@
         </main>
     </div>
 
-    <script>
-        const availableTimes = [
-            '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
-            '11:00', '11:30', '12:00', '12:30', '13:00',
-            '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
-        ];
-
-        const dateInput = document.getElementById('date');
-        const timeSelect = document.getElementById('time');
-
-        // Устанавливаем минимальную дату — сегодня
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.min = today;
-
-        // При выборе даты заполняем список времени
-        dateInput.addEventListener('change', function () {
-            timeSelect.innerHTML = '<option value="">-- Выберите время --</option>';
-            availableTimes.forEach(time => {
-                const option = document.createElement('option');
-                option.value = time;
-                option.textContent = time;
-                timeSelect.appendChild(option);
-            });
-        });
-
-        // Проверка формы перед отправкой
-        document.querySelector('form').addEventListener('submit', function (e) {
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const specialist = document.getElementById('specialist').value;
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-
-            if (!name || !phone || !specialist || !date || !time) {
-                e.preventDefault();
-                alert('Пожалуйста, заполните все поля!');
-                return;
-            }
-
-            // Проверка, что дата не в прошлом
-            if (date < today) {
-                e.preventDefault();
-                alert('Нельзя записаться на прошедшую дату!');
-                return;
-            }
-        });
-    </script>    
+    <!-- Подключаем скрипт сайдбара -->
     <script src="sidebar.js" defer></script>
+
+    <!-- Скрипт обработки формы и отправки цели в Метрику -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Устанавливаем минимальную дату — сегодня
+            const dateInput = document.getElementById('date');
+            if(dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.min = today;
+            }
+
+            // Обработка отправки формы
+            const form = document.getElementById('appointmentForm');
+            if(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Отменяем перезагрузку и ошибку 405
+
+                    // Собираем данные
+                    const name = document.getElementById('name').value;
+                    const phone = document.getElementById('phone').value;
+                    const specialist = document.getElementById('specialist').value;
+                    const date = document.getElementById('date').value;
+
+                    // Сохраняем в LocalStorage
+                    const appointment = { name, phone, specialist, date, timestamp: new Date().toISOString() };
+                    let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+                    appointments.push(appointment);
+                    localStorage.setItem('appointments', JSON.stringify(appointments));
+
+                    // Отправляем цель в Яндекс.Метрику
+                    if (typeof ym !== 'undefined') {
+                        ym(114414632, 'reachGoal', 'form_submit');
+                    }
+
+                    // Показываем сообщение пользователю
+                    alert('Спасибо, ' + name + '! Вы записаны на ' + date + '. Мы свяжемся с вами по номеру ' + phone);
+                    
+                    // Очищаем форму
+                    this.reset(); 
+                });
+            }
+        });
+    </script>
 </body>
 </html>
